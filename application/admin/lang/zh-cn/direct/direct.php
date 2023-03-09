@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'Anchor_id'           => '主播id',
+    'Room_number'         => '房间号',
+    'List'                => '分类',
+    'Direct_name'         => '直播间标题',
+    'Direct_image'        => '直播间封面',
+    'Online'              => '在线人数',
+    'Heat'                => '热度',
+    'Anchor.name'         => '主播名称',
+    'Anchor.image'        => '头像',
+    'Directclass.title'   => '分类名称',
+    'Anchor'              => '主播',
+    'Vip'                 => '贵宾',
+    'Guard'               => '真爱守护',
+    'ranking'             => '排行榜',
+    'gift'                => '礼物',
+    'Direct_url'          => '直播流链接',
+    'Room_style'          => '直播间样式',
+    'Switch'              => '是否开播',
+    'Istoll'              => '收费方式',
+    'Create_time'         => '添加时间',
+    'Update_time'         => '修改时间',
+];

@@ -1,0 +1,195 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <!--应用名-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" class="form-control" name="row[title]" type="text" placeholder="应用名">
+        </div>
+    </div>
+
+    <!--收费方式/状态-->
+    <div class="form-group">
+        <label class="control-label col-xs-9 col-sm-2"></label>
+        <div class="col-xs-5 col-sm-4">
+            {:build_radios('row[istoll]',$istoll,null,['class'=>'form-control', 'required'=>''])}
+        </div>
+        <div class="col-xs-6 col-sm-4">
+            {:build_radios('row[status]',$status,null,['status'=>'form-control', 'required'=>''])}
+        </div>
+    </div>
+
+    <!--所属-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('所属')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[belong]',$belong,null,['class'=>'form-control', 'required'=>''])}
+        </div>
+
+        <!--<div class="col-xs-6 col-sm-5">-->
+        <!--    {: build_select('row[class]',$class,null,['class'=>'form-control', 'required'=>''])}-->
+        <!--</div>-->
+    </div>
+
+    <!--图标-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('APP_image')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-app_image" class="form-control" size="50" name="row[app_image]" type="text">
+                <div class="input-group-addon no-border no-padding">
+                    <!--上传-->
+                    <span><button type="button" id="plupload-app_image" class="btn btn-danger plupload" data-input-id="c-app_image" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp,image/webp,image" data-multiple="false" data-preview-id="p-app_image"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <!--选择-->
+                    <span><button type="button" id="fachoose-app_image" class="btn btn-primary fachoose" data-input-id="c-app_image" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-app_image"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-app_image"></ul>
+        </div>
+    </div>
+
+    <!--短简介-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Brief')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" class="form-control" name="row[brief]" type="text" placeholder="短简介">
+        </div>
+    </div>
+
+    <!--应用介绍-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Introduce')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <!--<input id="c-title" data-rule="required" class="form-control" name="row[introduce]" type="number">-->
+            <textarea id="c-content" class="form-control editor" rows="5" name="row[introduce]" cols="50"></textarea>
+        </div>
+    </div>
+
+    <!--应用截图（竖）-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Screenshots_just')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-screenshots_just" class="form-control" size="50" name="row[screenshots_just]" type="text" placeholder="可留空">
+                <div class="input-group-addon no-border no-padding">
+                    <!--上传-->
+                    <span><button type="button" id="plupload-screenshots_just" class="btn btn-danger plupload" data-input-id="c-screenshots_just" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="true" data-preview-id="p-screenshots_just"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <!--选择-->
+                    <span><button type="button" id="fachoose-screenshots_just" class="btn btn-primary fachoose" data-input-id="c-screenshots_just" data-mimetype="image/*" data-multiple="true"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-screenshots_just"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-screenshots_just"></ul>
+        </div>
+    </div>
+
+    <!--应用截图（横）-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Screenshots_long')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-screenshots_long" class="form-control" size="50" name="row[screenshots_long]" type="text" placeholder="可留空">
+                <div class="input-group-addon no-border no-padding">
+                    <!--上传-->
+                    <span><button type="button" id="plupload-screenshots_long" class="btn btn-danger plupload" data-input-id="c-screenshots_long" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="true" data-preview-id="p-screenshots_long"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <!--选择-->
+                    <span><button type="button" id="fachoose-screenshots_long" class="btn btn-primary fachoose" data-input-id="c-screenshots_long" data-mimetype="image/*" data-multiple="true"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-screenshots_long"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-screenshots_long"></ul>
+        </div>
+    </div>
+
+    <!--APK体积/下载链接-->
+    <div class="form-group">
+        <!--<div class="form-group">-->
+        <label class="control-label col-xs-12 col-sm-2">{:__('APKsize')}:</label>
+        <div class="col-xs-3 col-sm-3">
+            <input id="c-title" data-rule="required" class="form-control" name="row[apksize]" type="number" placeholder="APK体积">
+        </div>
+        <!--</div>-->
+
+        <!--<label class="control-label col-xs-10 col-sm-2">{:__('Downurl')}:</label>-->
+        <div class="col-xs-9 col-sm-5">
+            <div class="input-group">
+                <input id="c-downurl" class="form-control" name="row[downurl]" type="text" placeholder="下载链接">
+                <div class="input-group-addon no-border no-padding">
+                    <!--上传-->
+                    <span><button type="button" id="plupload-downurl" class="btn btn-danger plupload" data-input-id="c-downurl" data-mimetype="apk" data-multiple="false" data-preview-id="p-downurl"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <!--选择-->
+                    <span><button type="button" id="fachoose-downurl" class="btn btn-primary fachoose" data-input-id="c-downurl" data-mimetype="false" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-downurl"></span>
+            </div>
+            <!--预览-->
+            <!--<ul class="row list-inline plupload-preview" id="p-downurl"></ul>-->
+        </div>
+    </div>
+
+    <!--预览视频-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Videourl')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-videourl" class="form-control" name="row[videourl]" type="text" placeholder="可留空">
+                <div class="input-group-addon no-border no-padding">
+                    <!--上传-->
+                    <span><button type="button" id="plupload-videourl" class="btn btn-danger plupload" data-input-id="c-videourl" data-mimetype="mp4" data-multiple="false" data-preview-id="p-videourl"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <!--选择-->
+                    <span><button type="button" id="fachoose-videourl" class="btn btn-primary fachoose" data-input-id="c-videourl" data-mimetype="mp4/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-videourl"></span>
+            </div>
+            <!--预览-->
+            <ul class="row list-inline plupload-preview" id="p-videourl"></ul>
+        </div>
+    </div>
+    <!--发布时间-->
+    <!--<div class="form-group">-->
+    <!--    <label class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>-->
+    <!--    <div class="col-xs-12 col-sm-8">-->
+    <!--        <input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{:date('Y-m-d H:i:s')}">-->
+    <!--    </div>-->
+    <!--</div>-->
+    <!--更新时间-->
+    <!--<div class="form-group">-->
+    <!--    <label class="control-label col-xs-12 col-sm-2">{:__('Update_time')}:</label>-->
+    <!--    <div class="col-xs-12 col-sm-8">-->
+    <!--        <input id="c-update_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[update_time]" type="text" value="{:date('Y-m-d H:i:s')}">-->
+    <!--    </div>-->
+    <!--</div>-->
+
+    <!--发布/更新-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('发布/更新')}:</label>
+        <div class="col-xs-6 col-sm-4">
+
+            <!--<input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{:date('Y-m-d H:i:s')}">-->
+
+            <input id="c-create_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" placeholder="发布时间" value="{:date('Y-m-d H:i:s')}">
+        </div>
+        <div class="col-xs-6 col-sm-4">
+            <input id="c-update_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[update_time]" type="text" placeholder="更新时间" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+
+    <!--默认自动输入分类为1-->
+    <input id="c-class" data-rule="required" class="form-control" name="row[class]" type="hidden" value="1">
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <!--提交-->
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <!--重置-->
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<style>
+    .fieldlist dd input:first-child {
+        width: 368px;
+    }
+</style>

@@ -1,0 +1,120 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    
+    <!--片名/收费方式-->
+    <div class="form-group">
+    <label class="control-label col-xs-12 col-sm-2">{:__('Vod_name')}:</label>
+        <div class="col-xs-5 col-sm-4">
+            <input id="c-vod_name" class="form-control" name="row[vod_name]" type="text"  value="{$row.vod_name|htmlentities}">
+        </div>
+        <div class="col-xs-7 col-sm-4">
+            {:build_radios('row[vod_istoll]',$vod_istoll,$row.vod_istoll,['class'=>'form-control', 'required'=>''])}
+        </div>
+    </div> 
+    
+    <!--封面-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Vod_pic')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-vod_pic" class="form-control" size="50" name="row[vod_pic]" type="text" value="{$row.vod_pic|htmlentities}">
+                <div class="input-group-addon no-border no-padding">
+                    <!--上传-->
+                    <span><button type="button" id="plupload-vod_pic" class="btn btn-danger plupload" data-input-id="c-vod_pic" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-vod_pic"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <!--选择-->
+                    <span><button type="button" id="fachoose-vod_pic" class="btn btn-primary fachoose" data-input-id="c-vod_pic" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-vod_pic"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-vod_pic"></ul>
+        </div>
+    </div>
+    
+    <!--导演/主演-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('导演/主演')}:</label>
+        <div class="col-xs-4 col-sm-3">
+            <input id="c-vod_director" class="form-control" name="row[vod_director]" type="text" placeholder="导演" value="{$row.vod_director|htmlentities}">
+        </div>
+        <!--<label class="control-label col-xs-12 col-sm-2">{:__('class')}:</label>-->
+        <div class="col-xs-8 col-sm-5">
+            <input id="c-vod_actor" class="form-control" name="row[vod_actor]" type="text" placeholder="主演" value="{$row.vod_actor|htmlentities}">
+        </div>
+    </div>
+    
+    <!--上映/地区/语言-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('上映/地区')}:</label>
+        <div class="col-xs-4 col-sm-2">
+            <input id="c-vod_year" class="form-control" name="row[vod_year]" type="text" placeholder="上映时间" value="{$row.vod_year|htmlentities}">
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <input id="c-vod_area" class="form-control" name="row[vod_area]" type="text" placeholder="地区" value="{$row.vod_area|htmlentities}">
+        </div>
+        <div class="col-xs-4 col-sm-2">
+            <input id="c-vod_lang" class="form-control" name="row[vod_lang]" type="text" placeholder="语言" value="{$row.vod_lang|htmlentities}">
+        </div>
+    </div>
+    
+    <!--分类/所属-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('分类/所属')}:</label>
+        <div class="col-xs-6 col-sm-3">
+            {:build_select('row[vod_class]',$vod_class,$row.vod_class,['class'=>'form-control', 'required'=>''])}
+        </div>
+        <div class="col-xs-6 col-sm-5">
+            {:build_select('row[vod_belong]',$vod_belong,$row.vod_belong,['class'=>'form-control', 'required'=>''])}
+        </div>
+    </div>
+    
+    <!--剧情介绍-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Vod_content')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-vod_content" class="form-control" name="row[vod_content]" type="text" value="{$row.vod_content|htmlentities}">
+        </div>
+    </div>
+    
+    <!--视频流链接-->
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Vod_play_url')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-vod_play_url" class="form-control" name="row[vod_play_url]" type="text" value="{$row.vod_play_url|htmlentities}">
+                <div class="input-group-addon no-border no-padding">
+                    <!--上传-->
+                    <span><button type="button" id="plupload-vod_play_url" class="btn btn-danger plupload" data-input-id="c-vod_play_url" data-mimetype="mp4" data-multiple="false" data-preview-id="p-vod_play_url"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <!--选择-->
+                    <span><button type="button" id="fachoose-vod_play_url" class="btn btn-primary fachoose" data-input-id="c-vod_play_url" data-mimetype="mp4/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-vod_play_url"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-vod_play_url"></ul>
+        </div>
+    </div>
+    
+    <!--单独购买/有效期-->
+    <!--<div class="form-group">-->
+    <!--    <label class="control-label col-xs-12 col-sm-2">{:__('单独购买/有效期')}:</label>-->
+    <!--    <div class="col-xs-6 col-sm-3">-->
+    <!--        <input id="c-watch_price" class="form-control" name="row[watch_price]" type="text" placeholder="单独购买价格" value="{$row.watch_price|htmlentities}">-->
+    <!--    </div>-->
+    <!--    <div class="col-xs-6 col-sm-5">-->
+    <!--        <input id="c-watch_day" class="form-control" name="row[watch_day]" type="text" placeholder="单独购买有效期" value="{$row.watch_day|htmlentities}">-->
+    <!--    </div>-->
+    <!--</div>-->
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Vod_create_time')}:</label>
+        <div class="col-xs-12 col-sm-6">
+            <input id="c-vod_create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[vod_create_time]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
