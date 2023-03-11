@@ -16,3 +16,5 @@ node_modules
 public/upload/*
 public/uploads/*
 public/code/*
+.DS_Store
+*/.DS_Stroe

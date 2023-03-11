@@ -4,7 +4,7 @@ return array (
   'name' => '欢迎回来！',
   'beian' => '',
   'cdnurl' => '',
-  'version' => '1.0.1',
+  'version' => '1.0.2',
   'timezone' => 'Asia/Shanghai',
   'forbiddenip' => '',
   'languages' => 
@@ -65,7 +65,7 @@ return array (
   'website' => '',
   'direct' => '严正声明：平台不提供任何线下活动，任何与主播私加联系方式属于个人行为，造成的任何后果自行承担与本平台无关！',
   'video_prefix' => '',
-  'chat' => 'http://online.www.xiaohongshu.mom/index/index/home?visiter_id=&visiter_name=&avatar=&business_id=1&groupid=0&special=1&theme=7571f9',
+  'chat' => 'http://api.dpshotel.com/index/index/home?visiter_id=&visiter_name=&avatar=&business_id=1&groupid=0&special=1&theme=7571f9',
   'invite_code' => '0',
   'zcs' => '1',
   'gonggao' => '这是测试的代理公告，你可以在APP管理后台任意修改！！！',
@@ -136,5 +136,5 @@ return array (
   'allow_registration' => '0',
   'myopic_state' => '0',
   'type_of_myopic' => '1',
-  'myopic_video_previewing' => '<video muted controlslist="nodownload" loop="loop" controls="controls" src="http://damaotou.xiaohongshu.mom/upload/user/images/new_file/20221226/59a6352f599328ad84258aa1a31b2be9.mp4" style="width:100%;height:100%" autoplay="autoplay" webkit-playsinline="" playsinline=""></video>',
+  'myopic_video_previewing' => '<video muted controlslist="nodownload" loop="loop" controls="controls" src="http://api.dfjxsb.com/upload/user/images/new_file/20221226/59a6352f599328ad84258aa1a31b2be9.mp4" style="width:100%;height:100%" autoplay="autoplay" webkit-playsinline="" playsinline=""></video>',
 );

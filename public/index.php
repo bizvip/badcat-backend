@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 // 定义应用目录
 const APP_PATH = __DIR__.'/../application/';
 

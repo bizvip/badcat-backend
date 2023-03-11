@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use think\Route;
 
 //直播关注列表
@@ -35,6 +37,6 @@ Route::get('pay/list', 'api/paylist/index');
 //购买礼物
 Route::post('gift/buy/:price', 'api/gifts/create');
 //在线人数加减
-Route::put('direct/room/:id','api/direct/update');
+Route::put('direct/room/:id', 'api/direct/update');
 //客服连接
 // Route::get('chat','api/Chat/index');

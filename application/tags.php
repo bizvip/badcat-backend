@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 // 应用行为扩展定义文件
 return [
