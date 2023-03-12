@@ -53,7 +53,7 @@ class Ems
         $code = is_null($code) ? Random::numeric(config('captcha.length')) : $code;
         $time = time();
         $ip = request()->ip();
-        $ems = \app\common\model\Ems::create(['event' => $event, 'email' => $email, 'code' => $code, 'ip' => $ip, 'createtime' => $time]);
+        $ems = \app\common\model\Ems::create(['event' => $event, 'email' => $email, 'code' => $code, 'ip' => $ip, 'create_time' => $time]);
         if (!Hook::get('ems_send')) {
             //采用框架默认的邮件推送
             Hook::add('ems_send', function ($params) {
@@ -121,7 +121,7 @@ class Ems
             ->order('id', 'DESC')
             ->find();
         if ($ems) {
-            if ($ems['createtime'] > $time && $ems['times'] <= self::$maxCheckNums) {
+            if ($ems['create_time'] > $time && $ems['times'] <= self::$maxCheckNums) {
                 $correct = $code == $ems['code'];
                 if (!$correct) {
                     $ems->times = $ems->times + 1;

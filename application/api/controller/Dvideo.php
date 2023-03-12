@@ -87,7 +87,7 @@ class Dvideo extends Api
 			$this->error('ＭＵＳＴ　ＢＥ　ＰＯＳＴ');
 		}
 		$req = $request->post();
-		$res = Videos::with(['subordinate'])->where('apoccdio_video.id', $req['id'])->find();
+		$res = Videos::with(['subordinate'])->where('bc_video.id', $req['id'])->find();
 		if ($request->header('token') !== null) {
 			$user = $this->auth->getUserinfo();
 			$find = Thumbs::where(['userid' => $user['id'], 'thumbsid' => $res['id']])->find();

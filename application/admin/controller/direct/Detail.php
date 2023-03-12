@@ -128,7 +128,7 @@ class Detail extends Backend
 	{
 
 		$jiekoudata = \app\admin\model\Jiekou::where('id', 1)->find();
-		$data = db::table('apoccdio_direct')->Distinct(true)->field('roomurl')->select();
+		$data = db::table('bc_direct')->Distinct(true)->field('roomurl')->select();
 		//return json($data);
 		foreach ($data as $kroom => $vroom) {
 			$zbarray = array(); //直播名称数组
@@ -142,7 +142,7 @@ class Detail extends Backend
 			//该房间是否有数据,没有则取消该房间所有推荐
 			if (isset(json_decode($zbresult)->zhubo) == false) {
 				//db('zhibo_tuijian')->where('roomurl', $vroom["roomurl"])->update(['status'=>0]);
-				db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->update(['status' => 1]);
+				db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->update(['status' => 1]);
 			} else {
 				$zbresult = json_decode($zbresult)->zhubo;
 				$xuhao = 1;
@@ -155,23 +155,23 @@ class Detail extends Backend
 					}
 				}
 				//return json($dic);
-				$tuijianlist = db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->select(); //当前表里的主播列表
+				$tuijianlist = db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->select(); //当前表里的主播列表
 				foreach ($tuijianlist as $k1 => $v1) {
 					$url = $v1["direct_url"];
 					$zhuboid = $v1["anchor_id"]; //当前表里的主播id
-					// 	$zhubomodel = db::table('apoccdio_anchor')->where('id', $zhuboid)->find();
+					// 	$zhubomodel = db::table('bc_anchor')->where('id', $zhuboid)->find();
 					// 	$zhuboname = $zhubomodel['name'];
 
 					//序号在当前获取的播放列表里是否存在
 					if (!isset($modelarray[$v1["xuhao"]])) {
 						//如果不存在 状态改为不推荐
-						db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status' => 1]);
+						db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status' => 1]);
 					} else {
 						//如果存在
 						$newmodel = $modelarray[$v1["xuhao"]];
-						db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['direct_image' => $newmodel->img, 'direct_url' => $newmodel->address, 'update_time' => date("Y-m-d H:i:s"), 'status' => 0]);
+						db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['direct_image' => $newmodel->img, 'direct_url' => $newmodel->address, 'update_time' => date("Y-m-d H:i:s"), 'status' => 0]);
 
-						db::table('apoccdio_anchor')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['name' => $newmodel->title, 'image' => $newmodel->img, 'update_time' => date("Y-m-d H:i:s")]);
+						db::table('bc_anchor')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['name' => $newmodel->title, 'image' => $newmodel->img, 'update_time' => date("Y-m-d H:i:s")]);
 					}
 
 
@@ -183,7 +183,7 @@ class Detail extends Backend
 
 					// 		if(!isset($modelarray[$v1["xuhao"]])){
 					// 			//db('zhibo_tuijian')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status'=>0]);
-					// 			db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status'=>1]);
+					// 			db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status'=>1]);
 					// 		} else {
 					// 			$newmodel = $modelarray[$v1["xuhao"]];
 					// 	/*		if(strpos($newmodel->address,"pull")){
@@ -191,13 +191,13 @@ class Detail extends Backend
 					// 			} else {*/
 					// 				if(!$this->is_null($newmodel->address) == false){
 					// 					//db('zhibo_tuijian')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status'=>0]);
-					// 					db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status'=>1]);
+					// 					db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status'=>1]);
 					// 				} else {
 
 
-					// 					db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['direct_image'=>$newmodel->img,'direct_url'=>$newmodel->address,'status'=>0]);
+					// 					db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['direct_image'=>$newmodel->img,'direct_url'=>$newmodel->address,'status'=>0]);
 
-					// 					db::table('apoccdio_anchor')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['name'=>$newmodel->title,'image'=>$newmodel->img]);
+					// 					db::table('bc_anchor')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['name'=>$newmodel->title,'image'=>$newmodel->img]);
 					// 				}
 
 					// 		//	}
@@ -205,7 +205,7 @@ class Detail extends Backend
 
 					// 	} else {
 					// 		//return json($url);
-					// 		db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status'=>0]);
+					// 		db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status'=>0]);
 					// 	}
 				}
 			}
@@ -265,7 +265,7 @@ class Detail extends Backend
 			//$wheretuijian["direct_name"] = $housename;
 			$directmodel = \app\admin\model\Direct::where($wheretuijian)->find();
 			if ($directmodel) {
-				db::table('apoccdio_direct')->where('id', $directmodel['id'])->delete();
+				db::table('bc_direct')->where('id', $directmodel['id'])->delete();
 				return json(['code' => 2, 'msg' => '取消推荐成功']);
 			} else {
 				return json(['code' => 2, 'msg' => '该主播还没推荐，先推荐']);
@@ -355,13 +355,13 @@ class Detail extends Backend
 
 			if (!$zhubomodel) {
 				//添加主播信息
-				$zhuboid = db::table('apoccdio_anchor')->insertGetId(['name' => $title, 'sex' => 0, 'image' => $img, 'level' => 1, 'content' => '个人简介', 'fans' => mt_rand(1, 50000), 'create_time' => $create_time, 'update_time' => $update_time, 'roomurl' => $roomurl, 'xuhao' => $xuhao]);
+				$zhuboid = db::table('bc_anchor')->insertGetId(['name' => $title, 'sex' => 0, 'image' => $img, 'level' => 1, 'content' => '个人简介', 'fans' => mt_rand(1, 50000), 'create_time' => $create_time, 'update_time' => $update_time, 'roomurl' => $roomurl, 'xuhao' => $xuhao]);
 				//$addzhubomodel = \app\admin\model\Anchor::where('name', $title)->find();
 				//$zhuboid = $addzhubomodel['id'];
 			}
 
 
-			$id = db::table('apoccdio_direct')->insertGetId(['anchor_id' => $zhuboid, 'room_number' => $room_number, 'gift' => $gift, 'ranking' => $ranking, 'vip' => $vip, 'guard' => $guard, 'heat' => $heat, 'online' => $online, 'list' => $list, 'direct_name' => $direct_name, 'direct_image' => $direct_image, 'direct_url' => $direct_url, 'switch' => 1, 'create_time' => $create_time, 'update_time' => $update_time, 'roomurl' => $roomurl, 'xuhao' => $xuhao, 'istoll' => 2, 'live_room_style' => 1, 'status' => 0]);
+			$id = db::table('bc_direct')->insertGetId(['anchor_id' => $zhuboid, 'room_number' => $room_number, 'gift' => $gift, 'ranking' => $ranking, 'vip' => $vip, 'guard' => $guard, 'heat' => $heat, 'online' => $online, 'list' => $list, 'direct_name' => $direct_name, 'direct_image' => $direct_image, 'direct_url' => $direct_url, 'switch' => 1, 'create_time' => $create_time, 'update_time' => $update_time, 'roomurl' => $roomurl, 'xuhao' => $xuhao, 'istoll' => 2, 'live_room_style' => 1, 'status' => 0]);
 			if ($id) {
 				for ($i = 0; $i < $vip; $i++) {
 					$name = file_get_contents('name.txt'); //将整个文件内容读入到一个字符串中
@@ -455,13 +455,13 @@ class Detail extends Backend
 
 				if (!$zhubomodel) {
 					//添加主播信息
-					$zhuboid = db::table('apoccdio_anchor')->insertGetId(['name' => $title, 'class_id' => $class_id, 'sex' => 0, 'image' => $img, 'level' => 1, 'content' => '个人简介', 'fans' => mt_rand(1, 50000), 'create_time' => $create_time, 'update_time' => $update_time, 'roomurl' => $roomurl, 'xuhao' => $xuhao]);
+					$zhuboid = db::table('bc_anchor')->insertGetId(['name' => $title, 'class_id' => $class_id, 'sex' => 0, 'image' => $img, 'level' => 1, 'content' => '个人简介', 'fans' => mt_rand(1, 50000), 'create_time' => $create_time, 'update_time' => $update_time, 'roomurl' => $roomurl, 'xuhao' => $xuhao]);
 					//$addzhubomodel = \app\admin\model\Anchor::where('name', $title)->find();
 					//$zhuboid = $addzhubomodel['id'];
 				}
 
 
-				$id = db::table('apoccdio_direct')->insertGetId(['anchor_id' => $zhuboid, 'room_number' => $room_number, 'gift' => $gift, 'ranking' => $ranking, 'vip' => $vip, 'guard' => $guard, 'heat' => $heat, 'online' => $online, 'list' => $list, 'direct_name' => $direct_name, 'direct_image' => $direct_image, 'direct_url' => $direct_url, 'switch' => 1, 'create_time' => $create_time, 'update_time' => $update_time, 'roomurl' => $roomurl, 'xuhao' => $xuhao, 'status' => 0]);
+				$id = db::table('bc_direct')->insertGetId(['anchor_id' => $zhuboid, 'room_number' => $room_number, 'gift' => $gift, 'ranking' => $ranking, 'vip' => $vip, 'guard' => $guard, 'heat' => $heat, 'online' => $online, 'list' => $list, 'direct_name' => $direct_name, 'direct_image' => $direct_image, 'direct_url' => $direct_url, 'switch' => 1, 'create_time' => $create_time, 'update_time' => $update_time, 'roomurl' => $roomurl, 'xuhao' => $xuhao, 'status' => 0]);
 				if ($id) {
 					for ($i = 0; $i < $vip; $i++) {
 						$name = file_get_contents('name.txt'); //将整个文件内容读入到一个字符串中

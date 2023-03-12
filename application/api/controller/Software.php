@@ -95,8 +95,8 @@ class Software extends Api
 			$this->error('ＭＵＳＴ　ＢＥ　ＰＯＳＴ');
 		}
 		$req = $request->post();
-		// $res = Softwares::with('labels')->where('apoccdio_software.id', $req['id'])->find();
-		$res = Softwares::where('apoccdio_software.id', $req['id'])->find();
+		// $res = Softwares::with('labels')->where('bc_software.id', $req['id'])->find();
+		$res = Softwares::where('bc_software.id', $req['id'])->find();
 		if ($request->header('token') !== null) {
 			$user = $this->auth->getUserinfo();
 			$find = Thumbs::where(['userid' => $user['id'], 'thumbsid' => $res['id']])->find();

@@ -112,7 +112,7 @@ class Commenta extends Backend
         if ($this->request->isPost()) {
             $comments = input()['comments'];
             foreach ($comments as $item) {
-                db::table('apoccdio_text')->insert(['class' => input()['class'], 'text' => $item]);
+                db::table('bc_text')->insert(['class' => input()['class'], 'text' => $item]);
             }
             $this->success('成功');
         }

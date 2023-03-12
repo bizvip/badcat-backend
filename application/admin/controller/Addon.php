@@ -345,7 +345,7 @@ class Addon extends Backend
                 $v['url'] = addon_url($v['name']);
                 $v['url'] = str_replace($this->request->server('SCRIPT_NAME'), '', $v['url']);
             }
-            $v['createtime'] = filemtime(ADDON_PATH . $v['name']);
+            $v['create_time'] = filemtime(ADDON_PATH . $v['name']);
             if ($filter && isset($filter['category_id']) && is_numeric($filter['category_id']) && $filter['category_id'] != $v['category_id']) {
                 continue;
             }

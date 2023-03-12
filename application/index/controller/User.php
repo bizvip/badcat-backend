@@ -293,9 +293,9 @@ class User extends Frontend
                 $where['filename'] = ['like', '%' . $filterArr['filename'] . '%'];
             }
 
-            if (isset($filterArr['createtime'])) {
-                $timeArr = explode(' - ', $filterArr['createtime']);
-                $where['createtime'] = ['between', [strtotime($timeArr[0]), strtotime($timeArr[1])]];
+            if (isset($filterArr['create_time'])) {
+                $timeArr = explode(' - ', $filterArr['create_time']);
+                $where['create_time'] = ['between', [strtotime($timeArr[0]), strtotime($timeArr[1])]];
             }
             $search = $this->request->get('search');
             if ($search) {

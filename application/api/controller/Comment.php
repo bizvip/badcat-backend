@@ -35,7 +35,7 @@ class Comment extends Api
                 $photo = file_get_contents('photo.txt');//将整个文件内容读入到一个字符串中
                 $photo = json_decode(mb_convert_encoding($photo, 'UTF-8', 'UTF-8,GBK,GB2312,BIG5'));//转换字符集（编码）
                 $photo = $photo[array_rand($photo)];
-                $comment = db::table('apoccdio_text')->where(['class' => $req['class']])->orderRaw('rand()')->value('text');
+                $comment = db::table('bc_text')->where(['class' => $req['class']])->orderRaw('rand()')->value('text');
                 Comments::insert(['name' => $name, 'avator_image' => $photo, 'content' => $comment, 'community_id' => $req['id'], 'class' => $req['class'], 'creat_time' => date('Y-m_d H:i:s'),'level'=>mt_rand(0,2)]);
             }
         }

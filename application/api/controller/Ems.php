@@ -41,7 +41,7 @@ class Ems extends Api
         $event = $event ? $event : 'register';
 
         $last = Emslib::get($email, $event);
-        if ($last && time() - $last['createtime'] < 60) {
+        if ($last && time() - $last['create_time'] < 60) {
             $this->error(__('发送频繁'));
         }
         if ($event) {

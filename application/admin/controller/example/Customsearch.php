@@ -18,7 +18,7 @@ class Customsearch extends Backend
     {
         parent::_initialize();
         $this->model = model('AdminLog');
-        $ipList = $this->model->whereTime('createtime', '-37 days')->group("ip")->column("ip,ip as aa");
+        $ipList = $this->model->whereTime('create_time', '-37 days')->group("ip")->column("ip,ip as aa");
         $this->view->assign("ipList", $ipList);
     }
 }

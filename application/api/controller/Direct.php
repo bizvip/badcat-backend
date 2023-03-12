@@ -153,7 +153,7 @@ class Direct extends Api
     {
 
         $jiekoudata = \app\admin\model\Jiekou::where('id', 1)->find();
-        $data = db::table('apoccdio_direct')->Distinct(true)->field('roomurl')->select();
+        $data = db::table('bc_direct')->Distinct(true)->field('roomurl')->select();
         //return json($data);
         foreach ($data as $kroom => $vroom) {
             $zbarray = array(); //直播名称数组
@@ -167,7 +167,7 @@ class Direct extends Api
             //该房间是否有数据,没有则取消该房间所有推荐
             if (isset(json_decode($zbresult)->zhubo) == false) {
                 //db('zhibo_tuijian')->where('roomurl', $vroom["roomurl"])->update(['status'=>0]);
-                db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->update(['status' => 1]);
+                db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->update(['status' => 1]);
             } else {
                 $zbresult = json_decode($zbresult)->zhubo;
                 $xuhao = 1;
@@ -180,23 +180,23 @@ class Direct extends Api
                     }
                 }
                 //return json($dic);
-                $tuijianlist = db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->select(); //当前表里的主播列表
+                $tuijianlist = db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->select(); //当前表里的主播列表
                 foreach ($tuijianlist as $k1 => $v1) {
                     $url = $v1["direct_url"];
                     $zhuboid = $v1["anchor_id"]; //当前表里的主播id
-                    // 	$zhubomodel = db::table('apoccdio_anchor')->where('id', $zhuboid)->find();
+                    // 	$zhubomodel = db::table('bc_anchor')->where('id', $zhuboid)->find();
                     // 	$zhuboname = $zhubomodel['name'];
 
                     //序号在当前获取的播放列表里是否存在
                     if (!isset($modelarray[$v1["xuhao"]])) {
                         //如果不存在 状态改为不推荐
-                        db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status' => 1]);
+                        db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status' => 1]);
                     } else {
                         //如果存在
                         $newmodel = $modelarray[$v1["xuhao"]];
-                        db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['direct_image' => $newmodel->img, 'direct_url' => $newmodel->address, 'update_time' => date("Y-m-d H:i:s"), 'status' => 0]);
+                        db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['direct_image' => $newmodel->img, 'direct_url' => $newmodel->address, 'update_time' => date("Y-m-d H:i:s"), 'status' => 0]);
 
-                        db::table('apoccdio_anchor')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['name' => $newmodel->title, 'image' => $newmodel->img, 'update_time' => date("Y-m-d H:i:s")]);
+                        db::table('bc_anchor')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['name' => $newmodel->title, 'image' => $newmodel->img, 'update_time' => date("Y-m-d H:i:s")]);
                     }
                 }
             }
@@ -218,7 +218,7 @@ class Direct extends Api
     public function getotherjiekou()
     {
         $jiekoudata = \app\admin\model\Jiekou::where('id', 1)->find();
-        $data = db::table('apoccdio_direct')->Distinct(true)->field('roomurl')->select();
+        $data = db::table('bc_direct')->Distinct(true)->field('roomurl')->select();
         //return json($data);
         foreach ($data as $kroom => $vroom) {
             $zbarray = array(); //直播名称数组
@@ -229,7 +229,7 @@ class Direct extends Api
             $zbresult = mb_convert_encoding($content, 'UTF-8', 'UTF-8,GBK,GB2312,BIG5');
             //该房间是否有数据,没有则取消该房间所有推荐
             if (isset(json_decode($zbresult)->zhubo) == false) {
-                db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->update(['status' => 1]);
+                db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->update(['status' => 1]);
             } else {
                 $zbresult = json_decode($zbresult)->zhubo;
                 $xuhao = 1;
@@ -241,7 +241,7 @@ class Direct extends Api
                         $xuhao++;
                     }
                 }
-                $tuijianlist = db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->select(); //当前表里的主播列表
+                $tuijianlist = db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->select(); //当前表里的主播列表
                 foreach ($tuijianlist as $k1 => $v1) {
                     $url = $v1["direct_url"];
                     $zhuboid = $v1["anchor_id"]; //当前表里的主播id
@@ -249,13 +249,13 @@ class Direct extends Api
                     //序号在当前获取的播放列表里是否存在
                     if (!isset($modelarray[$v1["xuhao"]])) {
                         //如果不存在 状态改为不推荐
-                        db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status' => 1]);
+                        db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['status' => 1]);
                     } else {
                         //如果存在
                         $newmodel = $modelarray[$v1["xuhao"]];
-                        db::table('apoccdio_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['direct_image' => $newmodel->img, 'direct_url' => $newmodel->address, 'update_time' => date("Y-m-d H:i:s"), 'status' => 0]);
+                        db::table('bc_direct')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['direct_image' => $newmodel->img, 'direct_url' => $newmodel->address, 'update_time' => date("Y-m-d H:i:s"), 'status' => 0]);
 
-                        db::table('apoccdio_anchor')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['name' => $newmodel->title, 'image' => $newmodel->img, 'update_time' => date("Y-m-d H:i:s")]);
+                        db::table('bc_anchor')->where('roomurl', $vroom["roomurl"])->where('xuhao', $v1["xuhao"])->update(['name' => $newmodel->title, 'image' => $newmodel->img, 'update_time' => date("Y-m-d H:i:s")]);
                     }
                 }
             }

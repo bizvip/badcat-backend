@@ -77,14 +77,14 @@ class Adv extends Api
     
     public function sqlbullet(){
         $name = 'RoseTang_'.mt_rand(1000,9999);
-        $res = db::table('apoccdio_bullet_name')->insert(['name'=>$name,'create_time'=>date('Y-m-d H:i:s'),'update_time'=>date('Y-m-d H:i:s')]);
+        $res = db::table('bc_bullet_name')->insert(['name'=>$name,'create_time'=>date('Y-m-d H:i:s'),'update_time'=>date('Y-m-d H:i:s')]);
         if($res){
             echo '添加成功';
         }
     }
     
     public function direct(){
-        $res = db::table('apoccdio_direct')->select();
+        $res = db::table('bc_direct')->select();
         foreach($res as $item){
             for ($i = 0; $i < $item['vip']; $i++) {
                         $name = file_get_contents('name.txt');//将整个文件内容读入到一个字符串中

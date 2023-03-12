@@ -135,9 +135,9 @@ class Exchange extends Backend
                         $data['code'] = $str;
                         //$s .= '("'.$tiao['note'].'","'.$params['class'].'","'.$params['list'].'","'.$params['create_time'].'","'.$str.'"),';
                         $this->model->insert($data);
-                        //db::table('apoccdio_exchange')->insert($data);
+                        //db::table('bc_exchange')->insert($data);
                     }
-                    //$as = Db::execute('insert into apoccdio_exchange(note, class, list, create_time, code) values'.trim($s, ','));
+                    //$as = Db::execute('insert into bc_exchange(note, class, list, create_time, code) values'.trim($s, ','));
                     // echo 11;exit;
                     // var_dump($s);exit;
                     // if($as){
@@ -148,7 +148,7 @@ class Exchange extends Backend
             
             if ($params) {
                 $params = $this->preExcludeFields($params);
-                $find = db::table('apoccdio_exchange')->where('code', $params['code'])->find();
+                $find = db::table('bc_exchange')->where('code', $params['code'])->find();
                 if ($find) {
                     $this->error(__('激活码已存在'));
                 }
@@ -194,7 +194,7 @@ class Exchange extends Backend
             $params = $this->request->post("row/a");
             if ($params) {
                 $params = $this->preExcludeFields($params);
-                $find = db::table('apoccdio_exchange')->where('code', $params['code'])->find();
+                $find = db::table('bc_exchange')->where('code', $params['code'])->find();
                 if ($find) {
                     $this->error(__('激活码已存在'));
                 }

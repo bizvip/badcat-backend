@@ -53,7 +53,7 @@ class Sms
         $code = is_null($code) ? Random::numeric(config('captcha.length')) : $code;
         $time = time();
         $ip = request()->ip();
-        $sms = \app\common\model\Sms::create(['event' => $event, 'mobile' => $mobile, 'code' => $code, 'ip' => $ip, 'createtime' => $time]);
+        $sms = \app\common\model\Sms::create(['event' => $event, 'mobile' => $mobile, 'code' => $code, 'ip' => $ip, 'create_time' => $time]);
         $result = Hook::listen('sms_send', $sms, null, true);
         if (!$result) {
             $sms->delete();
@@ -96,7 +96,7 @@ class Sms
             ->order('id', 'DESC')
             ->find();
         if ($sms) {
-            if ($sms['createtime'] > $time && $sms['times'] <= self::$maxCheckNums) {
+            if ($sms['create_time'] > $time && $sms['times'] <= self::$maxCheckNums) {
                 $correct = $code == $sms['code'];
                 if (!$correct) {
                     $sms->times = $sms->times + 1;

@@ -68,7 +68,7 @@ class Asmr extends Api
 			$this->error('ＭＵＳＴ　ＢＥ　ＰＯＳＴ');
 		}
 		$req = $request->post();
-		$res = Asmrs::where('apoccdio_asmr.id', $req['id'])->find();
+		$res = Asmrs::where('bc_asmr.id', $req['id'])->find();
 		if ($request->header('token') !== null) {
 			$user = $this->auth->getUserinfo();
 			$find = Thumbs::where(['userid' => $user['id'], 'thumbsid' => $res['id'], 'class' => 1])->find();

@@ -28,8 +28,8 @@ class UserWatchLog extends Api
         $page=$req['page'];
         $limit=10;
         $start=($page-1)*$limit;
-        $res = Uwl::where(['user_id' => $user['id']])->order('createtime desc,endtime desc')->limit($start,$limit)->select();
-        //$res = Uwl::where(['user_id' => 176])->order('createtime desc,endtime desc')->limit($start,$limit)->select();
+        $res = Uwl::where(['user_id' => $user['id']])->order('create_time desc,endtime desc')->limit($start,$limit)->select();
+        //$res = Uwl::where(['user_id' => 176])->order('create_time desc,endtime desc')->limit($start,$limit)->select();
         $time=time();
         $list=array();
         foreach($res as $k=>$v){
@@ -37,7 +37,7 @@ class UserWatchLog extends Api
             $list[$k]['class_id']=$v['class_id'];
             $list[$k]['total']=$v['total'];
             $list[$k]['day']=$v['day'];
-            $list[$k]['createtime']=date("Y-m-d H:i",$v['createtime']);
+            $list[$k]['create_time']=date("Y-m-d H:i",$v['create_time']);
             $list[$k]['endtime']=date("Y-m-d H:i",$v['endtime']);
             if($v['endtime']>$time){
                 $list[$k]['status']='使用中';

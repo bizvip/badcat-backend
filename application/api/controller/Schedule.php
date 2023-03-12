@@ -15,7 +15,7 @@ class Schedule extends Api
     //两点
     public function two()
     {
-        $res = db::table('apoccdio_community')->where('status', 1)->where('class', '>', 0)->select();
+        $res = db::table('bc_community')->where('status', 1)->where('class', '>', 0)->select();
         foreach ($res as &$value) {
             if ($value['class'] == 1) {
                 $value['browse'] = mt_rand(2999, 9999);
@@ -34,7 +34,7 @@ class Schedule extends Api
     //9点
     public function nine()
     {
-        $res = db::table('apoccdio_community')->where('status', 1)->where('class', '>', 0)->select();
+        $res = db::table('bc_community')->where('status', 1)->where('class', '>', 0)->select();
         foreach ($res as &$value) {
             if ($value['class'] == 1) {
                 $value['browse'] = mt_rand(9999, 29999);
@@ -54,7 +54,7 @@ class Schedule extends Api
     //19
     public function nineteen()
     {
-        $res = db::table('apoccdio_community')->where('status', 1)->where('class', '>', 0)->select();
+        $res = db::table('bc_community')->where('status', 1)->where('class', '>', 0)->select();
         foreach ($res as &$value) {
             if ($value['class'] == 1) {
                 $value['browse'] = mt_rand(9999, 69999);
@@ -73,7 +73,7 @@ class Schedule extends Api
     //两点短文
     public function two_dw()
     {
-        $res = db::table('apoccdio_community')->where('status', 1)->where('class', 0)->select();
+        $res = db::table('bc_community')->where('status', 1)->where('class', 0)->select();
         foreach ($res as &$value) {
             $value['browse'] = mt_rand(199, 599);
         }
@@ -84,7 +84,7 @@ class Schedule extends Api
     //九点短文
     public function nine_dw()
     {
-        $res = db::table('apoccdio_community')->where('status', 1)->where('class', 0)->select();
+        $res = db::table('bc_community')->where('status', 1)->where('class', 0)->select();
         foreach ($res as &$value) {
             $value['browse'] = mt_rand(199, 799);
         }
@@ -95,7 +95,7 @@ class Schedule extends Api
     //十九点短文
     public function nineteen_dw()
     {
-        $res = db::table('apoccdio_community')->where('status', 1)->where('class', 0)->select();
+        $res = db::table('bc_community')->where('status', 1)->where('class', 0)->select();
         foreach ($res as &$value) {
             $value['browse'] = mt_rand(199, 599);
         }
@@ -106,9 +106,9 @@ class Schedule extends Api
     //增加 1 - 15
     public function add()
     {
-        $res = db::table('apoccdio_community')->where('status', 1)->select();
+        $res = db::table('bc_community')->where('status', 1)->select();
         foreach ($res as $value) {
-            db::table('apoccdio_community')->where('id', $value['id'])->setInc('browse', mt_rand(1, 15));
+            db::table('bc_community')->where('id', $value['id'])->setInc('browse', mt_rand(1, 15));
         }
     }
 
@@ -120,12 +120,12 @@ class Schedule extends Api
         $user = new \app\admin\model\User();
         $res = collection($user->select())->toArray();
         foreach ($res as &$value) {
-            db::table('apoccdio_user')->where('id',$value['id'])->update(['num'=>$cs,'num_t'=>$xcs]);
+            db::table('bc_user')->where('id',$value['id'])->update(['num'=>$cs,'num_t'=>$xcs]);
         }
     }
     //数据增加
     public function zz(){
-        $res = db::table('apoccdio_shuju')->select();
+        $res = db::table('bc_shuju')->select();
         $data = [
             "users" => $res[0]["users"]+$res[1]["users"],
             "fangwens" => $res[0]["fangwens"]+$res[1]["fangwens"],
@@ -144,6 +144,6 @@ class Schedule extends Api
             "tvideo" =>$res[0]["tvideo"]+$res[1]["tvideo"],
             "now" => $res[0]["now"]+$res[1]["now"],
         ];
-        db::table('apoccdio_shuju')->where('id',1)->update($data);
+        db::table('bc_shuju')->where('id',1)->update($data);
     }
 }

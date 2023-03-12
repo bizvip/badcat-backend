@@ -58,9 +58,9 @@ class Direct extends Backend
 			list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 			$search = $this->request->request('search');
 			if (!empty($search)) {
-				$sql = "SELECT count(a.id) FROM apoccdio_direct AS a LEFT JOIN apoccdio_anchor AS b ON a.anchor_id=b.id WHERE a.direct_name LIKE '%" . $search . "%' OR b.name like '%" . $search . "%'";
+				$sql = "SELECT count(a.id) FROM bc_direct AS a LEFT JOIN bc_anchor AS b ON a.anchor_id=b.id WHERE a.direct_name LIKE '%" . $search . "%' OR b.name like '%" . $search . "%'";
 				$total = db()->query($sql);
-				$sql = "SELECT a.*,b.name as anchor_name,b.id as anchor_id FROM apoccdio_direct AS a LEFT JOIN apoccdio_anchor AS b ON a.anchor_id=b.id WHERE a.direct_name LIKE '%" . $search . "%' OR b.name like '%" . $search . "%' ORDER BY is_top,top_time desc LIMIT " . $offset . "," . $limit;
+				$sql = "SELECT a.*,b.name as anchor_name,b.id as anchor_id FROM bc_direct AS a LEFT JOIN bc_anchor AS b ON a.anchor_id=b.id WHERE a.direct_name LIKE '%" . $search . "%' OR b.name like '%" . $search . "%' ORDER BY is_top,top_time desc LIMIT " . $offset . "," . $limit;
 				$list = db()->query($sql);
 				foreach ($list as $k => $v) {
 					$list[$k]['anchor'] = $this->anchor::where('id', $v['anchor_id'])->find();
@@ -259,7 +259,7 @@ class Direct extends Backend
 		$data['top_time'] = date("Y-m-d H:i:s");
 
 		//$direct = new \app\admin\model\Direct();
-		db::table('apoccdio_direct')->where('id', $ids)->update(['is_top' => 1, 'top_time' => date("Y-m-d H:i:s")]);
+		db::table('bc_direct')->where('id', $ids)->update(['is_top' => 1, 'top_time' => date("Y-m-d H:i:s")]);
 		return json(['code' => 2, 'msg' => '置顶成功']);
 	}
 
@@ -267,7 +267,7 @@ class Direct extends Backend
 	public function canceltop($ids)
 	{
 		//$direct = new \app\admin\model\Direct();
-		db::table('apoccdio_direct')->where('id', $ids)->update(['is_top' => 0]);
+		db::table('bc_direct')->where('id', $ids)->update(['is_top' => 0]);
 		return json(['code' => 2, 'msg' => '取消置顶成功']);
 	}
 }

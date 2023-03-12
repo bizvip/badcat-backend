@@ -31,7 +31,7 @@ class Rule extends Backend
         }
         $this->model = model('AuthRule');
         // 必须将结果集转换为数组
-        $ruleList = \think\Db::name("auth_rule")->field('type,condition,remark,createtime,updatetime', true)->order('weigh DESC,id ASC')->select();
+        $ruleList = \think\Db::name("auth_rule")->field('type,condition,remark,create_time,update_time', true)->order('weigh DESC,id ASC')->select();
         foreach ($ruleList as $k => &$v) {
             $v['title'] = __($v['title']);
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\admin\controller\auth;
 
 use app\admin\model\AuthGroup;
@@ -16,19 +18,22 @@ use think\Validate;
  * @icon   fa fa-users
  * @remark 一个管理员可以有多个角色组,左侧的菜单根据管理员所拥有的权限进行生成
  */
-class Admin extends Backend
+final class Admin extends Backend
 {
-
     /**
      * @var \app\admin\model\Admin
      */
     protected $model = null;
+
     protected $selectpageFields = 'id,username,nickname,avatar';
+
     protected $searchFields = 'id,username,nickname';
+
     protected $childrenGroupIds = [];
+
     protected $childrenAdminIds = [];
 
-    public function _initialize()
+    public function _initialize(): void
     {
         parent::_initialize();
         $this->model = model('Admin');
@@ -36,7 +41,8 @@ class Admin extends Backend
         $this->childrenAdminIds = $this->auth->getChildrenAdminIds($this->auth->isSuperAdmin());
         $this->childrenGroupIds = $this->auth->getChildrenGroupIds($this->auth->isSuperAdmin());
 
-        $groupList = collection(AuthGroup::where('id', 'in', $this->childrenGroupIds)->select())->toArray();
+        $groupList = collection(AuthGroup::where('id', 'in', $this->childrenGroupIds)
+            ->select())->toArray();
 
         Tree::instance()->init($groupList);
         $groupdata = [];
@@ -49,8 +55,9 @@ class Admin extends Backend
             $result = [];
             $groups = $this->auth->getGroups();
             foreach ($groups as $m => $n) {
-                $childlist = Tree::instance()->getTreeList(Tree::instance()->getTreeArray($n['id']));
-                $temp = [];
+                $childlist = Tree::instance()->getTreeList(Tree::instance()
+                    ->getTreeArray($n['id']));
+                $temp      = [];
                 foreach ($childlist as $k => $v) {
                     $temp[$v['id']] = $v['name'];
                 }
@@ -66,7 +73,7 @@ class Admin extends Backend
     /**
      * 查看
      */
-    public function index()
+    public function index(): \think\response\Json|string
     {
         //设置过滤方法
         $this->request->filter(['strip_tags', 'trim']);
@@ -76,9 +83,8 @@ class Admin extends Backend
                 return $this->selectpage();
             }
             $childrenGroupIds = $this->childrenGroupIds;
-            $groupName = AuthGroup::where('id', 'in', $childrenGroupIds)
-                ->column('id,name');
-            $authGroupList = AuthGroupAccess::where('group_id', 'in', $childrenGroupIds)
+            $groupName        = AuthGroup::where('id', 'in', $childrenGroupIds)->column('id,name');
+            $authGroupList    = AuthGroupAccess::where('group_id', 'in', $childrenGroupIds)
                 ->field('uid,group_id')
                 ->select();
 
@@ -92,22 +98,21 @@ class Admin extends Backend
             foreach ($groups as $m => $n) {
                 $adminGroupName[$this->auth->id][$n['id']] = $n['name'];
             }
-            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+            [$where, $sort, $order, $offset, $limit] = $this->buildparams();
 
-            $list = $this->model
-                ->where($where)
+            $list = $this->model->where($where)
                 ->where('id', 'in', $this->childrenAdminIds)
                 ->field(['password', 'salt', 'token'], true)
                 ->order($sort, $order)
                 ->paginate($limit);
 
             foreach ($list as $k => &$v) {
-                $groups = isset($adminGroupName[$v['id']]) ? $adminGroupName[$v['id']] : [];
-                $v['groups'] = implode(',', array_keys($groups));
+                $groups           = $adminGroupName[$v['id']] ?? [];
+                $v['groups']      = implode(',', array_keys($groups));
                 $v['groups_text'] = implode(',', array_values($groups));
             }
             unset($v);
-            $result = array("total" => $list->total(), "rows" => $list->items());
+            $result = ["total" => $list->total(), "rows" => $list->items()];
 
             return json($result);
         }
@@ -117,7 +122,7 @@ class Admin extends Backend
     /**
      * 添加
      */
-    public function add()
+    public function add(): string
     {
         if ($this->request->isPost()) {
             $this->token();
@@ -125,13 +130,12 @@ class Admin extends Backend
             if ($params) {
                 Db::startTrans();
                 try {
-                    if (!Validate::is($params['password'], '\S{6,30}')) {
+                    if (!Validate::is($params['password'], '\S{8,100}')) {
                         exception(__("Please input correct password"));
                     }
-                    $params['salt'] = Random::alnum();
-                    $params['password'] = md5(md5($params['password']) . $params['salt']);
-                    $params['avatar'] = '/assets/img/avatar.png'; //设置新管理员默认头像。
-                    $result = $this->model->validate('Admin.add')->save($params);
+                    $params['password'] = \password_hash($params['password'], PASSWORD_ARGON2ID);
+                    $params['avatar']   = '/assets/img/avatar.png'; //设置新管理员默认头像。
+                    $result             = $this->model->validate('Admin.add')->save($params);
                     if ($result === false) {
                         exception($this->model->getError());
                     }
@@ -182,17 +186,17 @@ class Admin extends Backend
                         if (!Validate::is($params['password'], '\S{6,30}')) {
                             exception(__("Please input correct password"));
                         }
-                        $params['salt'] = Random::alnum();
-                        $params['password'] = md5(md5($params['password']) . $params['salt']);
+                        $params['salt']     = Random::alnum();
+                        $params['password'] = md5(md5($params['password']).$params['salt']);
                     } else {
                         unset($params['password'], $params['salt']);
                     }
                     //这里需要针对username和email做唯一验证
                     $adminValidate = \think\Loader::validate('Admin');
                     $adminValidate->rule([
-                        'username' => 'require|regex:\w{3,30}|unique:admin,username,' . $row->id,
-                        'email'    => 'require|email|unique:admin,email,' . $row->id,
-                        'mobile'    => 'regex:1[3-9]\d{9}|unique:admin,mobile,' . $row->id,
+                        'username' => 'require|regex:\w{3,30}|unique:admin,username,'.$row->id,
+                        'email'    => 'require|email|unique:admin,email,'.$row->id,
+                        'mobile'   => 'regex:1[3-9]\d{9}|unique:admin,mobile,'.$row->id,
                         'password' => 'regex:\S{32}',
                     ]);
                     $result = $row->validate('Admin.edit')->save($params);
@@ -226,7 +230,7 @@ class Admin extends Backend
             $this->error(__('Parameter %s can not be empty', ''));
         }
         $grouplist = $this->auth->getGroups($row['id']);
-        $groupids = [];
+        $groupids  = [];
         foreach ($grouplist as $k => $v) {
             $groupids[] = $v['id'];
         }
@@ -248,9 +252,13 @@ class Admin extends Backend
             $ids = array_intersect($this->childrenAdminIds, array_filter(explode(',', $ids)));
             // 避免越权删除管理员
             $childrenGroupIds = $this->childrenGroupIds;
-            $adminList = $this->model->where('id', 'in', $ids)->where('id', 'in', function ($query) use ($childrenGroupIds) {
-                $query->name('auth_group_access')->where('group_id', 'in', $childrenGroupIds)->field('uid');
-            })->select();
+            $adminList        = $this->model->where('id', 'in', $ids)
+                ->where('id', 'in', function ($query) use ($childrenGroupIds) {
+                    $query->name('auth_group_access')
+                        ->where('group_id', 'in', $childrenGroupIds)
+                        ->field('uid');
+                })
+                ->select();
             if ($adminList) {
                 $deleteIds = [];
                 foreach ($adminList as $k => $v) {
@@ -277,9 +285,10 @@ class Admin extends Backend
 
     /**
      * 批量更新
+     *
      * @internal
      */
-    public function multi($ids = "")
+    public function multi($ids = ""): void
     {
         // 管理员禁止批量操作
         $this->error();
@@ -288,9 +297,9 @@ class Admin extends Backend
     /**
      * 下拉搜索
      */
-    public function selectpage()
+    public function selectpage(): \think\response\Json
     {
-        $this->dataLimit = 'auth';
+        $this->dataLimit      = 'auth';
         $this->dataLimitField = 'id';
         return parent::selectpage();
     }

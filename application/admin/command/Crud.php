@@ -223,13 +223,13 @@ class Crud extends Command
      * 添加时间字段
      * @var string
      */
-    protected $createTimeField = 'createtime';
+    protected $createTimeField = 'create_time';
 
     /**
      * 更新时间字段
      * @var string
      */
-    protected $updateTimeField = 'updatetime';
+    protected $updateTimeField = 'update_time';
 
     /**
      * 软删除时间字段
