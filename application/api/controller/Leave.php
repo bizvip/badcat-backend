@@ -1,13 +1,11 @@
 <?php
 
-
 namespace app\api\controller;
-
 
 use app\common\controller\Api;
 use think\Request;
 
-class Leave extends Api
+final class Leave extends Api
 {
     protected $noNeedLogin = ['*'];
 
@@ -15,7 +13,7 @@ class Leave extends Api
     public function add(Request $request)
     {
         if ( ! $request->isPost()) {
-            $this->error('ＤＯＮ＇Ｔ　ＧＥＴ');
+            $this->error('参数不合法');
         }
         $req = $request->post();
         $user = $this->auth->getUserinfo();

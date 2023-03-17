@@ -40,7 +40,8 @@ class Ask extends Api
     public function wenda(Request $request)
     {
         if (!$request->isPost()) {
-            $this->error('ＤＯＮ＇Ｔ　ＧＥＴ');
+            $this->error('unsupported method');
+            throw new \HttpRequestMethodException('only GET');
         }
         $req = $request->post();
         // 按最新ID排序

@@ -16,7 +16,6 @@
     ],
     "require": {
         "php": ">=8.0",
-        "topthink/framework": "dev-master",
         "topthink/think-captcha": "^1.0",
         "topthink/think-installer": "^1.0.14",
         "topthink/think-queue": "1.1.6",
