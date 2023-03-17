@@ -45,7 +45,7 @@ class Mysql extends Builder
             foreach ($data as $key => $val) {
                 if (!in_array($key, $fields, true)) {
                     if ($options['strict']) {
-                        throw new Exception('fields not exists:[' . $key . ']');
+                        throw new Exception('fields not exists:[' . $key . '] 9048');
                     }
                     unset($data[$key]);
                 } elseif (is_null($val)) {
