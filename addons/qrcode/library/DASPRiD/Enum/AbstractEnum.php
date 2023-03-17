@@ -209,12 +209,7 @@ abstract class AbstractEnum
         throw new CloneNotSupportedException();
     }
 
-    /**
-     * Forbid serializing enums.
-     *
-     * @throws SerializeNotSupportedException
-     */
-    final public function __sleep() : void
+    final public function __sleep()
     {
         throw new SerializeNotSupportedException();
     }
